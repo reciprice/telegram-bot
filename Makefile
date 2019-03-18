@@ -25,3 +25,4 @@ run:
 	./$(BINARY_NAME)
 deps:
 	$(GOGET) github.com/go-telegram-bot-api/telegram-bot-api
+	$(GOGET) gopkg.in/tucnak/telebot.v2
