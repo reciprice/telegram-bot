@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"log"
 	"time"
 
 	tb "gopkg.in/tucnak/telebot.v2"
@@ -20,7 +20,7 @@ func Init() {
 		Poller: &tb.LongPoller{Timeout: 10 * time.Second},
 	})
 	if err != nil {
-		fmt.Errorf("ERROR")
+		log.Fatal(err)
 	}
 }
 
