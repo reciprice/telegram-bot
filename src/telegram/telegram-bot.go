@@ -27,5 +27,6 @@ func Init() {
 func main() {
 	Init()
 	DefineBasicCommands()
+	DefineCommands()
 	bot.Start()
 }
