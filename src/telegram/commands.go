@@ -35,8 +35,9 @@ func ChefCmd() {
 		if !m.Private() {
 			return
 		}
-
-		bot.Send(m.Sender, "J'ai glissé chef !")
+		recipe := GetRandomRecipe()
+		bot.Send(m.Sender, recipe.Video)
+		//bot.Send(m.Sender, "J'ai glissé chef !")
 	})
 }
 

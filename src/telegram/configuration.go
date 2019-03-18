@@ -7,7 +7,8 @@ import (
 )
 
 type Configuration struct {
-	Token string `json:"token"`
+	Token  string `json:"token"`
+	ApiURL string `json:"apiURL"`
 }
 
 func Load(filename string) Configuration {
