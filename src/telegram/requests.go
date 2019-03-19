@@ -15,10 +15,11 @@ type Ingredient struct {
 
 // Recipe structures is used to load recipes data from JSON request
 type Recipe struct {
-	Ingredients []Ingredient `json:"ingredients"`
-	Img         string       `json:"img"`
-	Name        string       `json:"name"`
-	Video       string       `json:"video"`
+	Ingredients  []Ingredient `json:"ingredients"`
+	Img          string       `json:"img"`
+	Name         string       `json:"name"`
+	Video        string       `json:"video"`
+	Instructions string       `json:"instructions"`
 }
 
 // GetRandomRecipe request the Reciprice Api and return a Recipe object with a random recipe.

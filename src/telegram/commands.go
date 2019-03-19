@@ -45,6 +45,7 @@ func ChefCmd() {
 		for _, element := range recipe.Ingredients {
 			response += "- " + element.Ingredient + " " + element.Mesure + "\n"
 		}
+		response += "\n" + recipe.Instructions
 		bot.Send(m.Sender, response)
 	})
 }
@@ -55,7 +56,9 @@ func RecipeCmd() {
 		if !m.Private() {
 			return
 		}
+		var response string
+		response = "Vous avez demandé " + m.Payload + " mais l'application ne supporte pas encore cette fonctionnalité. Revenez plus tard :) "
 
-		bot.Send(m.Sender, "Commande non implémentée. Revenez plus tard !")
+		bot.Send(m.Sender, response)
 	})
 }
