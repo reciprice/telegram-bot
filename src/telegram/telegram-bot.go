@@ -12,6 +12,7 @@ var (
 	bot    *tb.Bot
 )
 
+// Init load the conguration and initialise the Telegram bot
 func Init() {
 	config = Load("config/config.json")
 	var err error

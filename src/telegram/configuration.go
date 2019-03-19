@@ -6,11 +6,13 @@ import (
 	"os"
 )
 
+// Configuration is the model for loading JSON configuration file
 type Configuration struct {
 	Token  string `json:"token"`
-	ApiURL string `json:"apiURL"`
+	APIURL string `json:"apiURL"`
 }
 
+// Load is used to.. load the configuration file.
 func Load(filename string) Configuration {
 	file, err := os.Open(filename)
 	if err != nil {
