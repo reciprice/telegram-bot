@@ -26,3 +26,4 @@ run:
 deps:
 	$(GOGET) github.com/go-telegram-bot-api/telegram-bot-api
 	$(GOGET) gopkg.in/tucnak/telebot.v2
+	$(GOGET) github.com/bregydoc/gtranslate

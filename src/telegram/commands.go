@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/bregydoc/gtranslate"
 	tb "gopkg.in/tucnak/telebot.v2"
 )
 
@@ -45,7 +46,18 @@ func ChefCmd() {
 		for _, element := range recipe.Ingredients {
 			response += "- " + element.Ingredient + " " + element.Mesure + "\n"
 		}
-		response += "\n" + recipe.Instructions
+		translated, err := gtranslate.TranslateWithFromTo(
+			recipe.Instructions,
+			gtranslate.FromTo{
+				From: "en",
+				To:   "fr",
+			},
+		)
+		if err != nil {
+			panic(err)
+		}
+		response += translated
+
 		bot.Send(m.Sender, response)
 	})
 }
