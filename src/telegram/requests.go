@@ -8,16 +8,21 @@ import (
 	"time"
 )
 
+type Ingredient struct {
+	Ingredient string `json:"ingredient"`
+	Mesure     string `json:"mesures"`
+}
+
 // Recipe structures is used to load recipes data from JSON request
 type Recipe struct {
-	Img   string `json:"img"`
-	Name  string `json:"name"`
-	Video string `json:"video"`
+	Ingredients []Ingredient `json:"ingredients"`
+	Img         string       `json:"img"`
+	Name        string       `json:"name"`
+	Video       string       `json:"video"`
 }
 
 // GetRandomRecipe request the Reciprice Api and return a Recipe object with a random recipe.
 func GetRandomRecipe() Recipe {
-	log.Println("oui")
 	httpClient := http.Client{
 		Timeout: time.Second * 2,
 	}
@@ -40,6 +45,5 @@ func GetRandomRecipe() Recipe {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	return recipe
 }

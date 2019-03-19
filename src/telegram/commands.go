@@ -39,9 +39,13 @@ func ChefCmd() {
 		if !m.Private() {
 			return
 		}
+		var response string
 		recipe := GetRandomRecipe()
-		bot.Send(m.Sender, recipe.Video)
-		//bot.Send(m.Sender, "J'ai glissé chef !")
+		response = "Le chef vous suggère son plat :" + recipe.Name + "\n"
+		for _, element := range recipe.Ingredients {
+			response += "- " + element.Ingredient + " " + element.Mesure + "\n"
+		}
+		bot.Send(m.Sender, response)
 	})
 }
 
