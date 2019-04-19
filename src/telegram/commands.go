@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/bregydoc/gtranslate"
+	"fmt"
+	"strconv"
+
 	tb "gopkg.in/tucnak/telebot.v2"
 )
 
@@ -34,31 +36,33 @@ func StartCmd() {
 	})
 }
 
+// PrettyRecipe is the dezde
+func PrettyRecipe(recipe Recipe) string {
+	var response string
+	response = "Le chef vous suggère son plat : " + recipe.Name + "\n\n"
+
+	response += "\n" + "Instructions : \n"
+	response += recipe.Instructions + "\n\n"
+	response += "Votre panier :\n"
+	for _, element := range recipe.Cart.Wallmart {
+
+		response += "- " + element.Name + " (" + strconv.FormatFloat(element.Price, 'f', 2, 64) + "$CAD)\n" + element.Url + "\n"
+	}
+	response += "\nVideo :\n"
+	response += recipe.Video
+	fmt.Println(response)
+	return response
+}
+
 // ChefCmd is the implementation of the /chef command. Gives you a random recipe. (We're lying to people saying its the choice of the chef.. shhhht.)
 func ChefCmd() {
 	bot.Handle("/chef", func(m *tb.Message) {
 		if !m.Private() {
 			return
 		}
-		var response string
+		bot.Notify(m.Sender, "typing")
 		recipe := GetRandomRecipe()
-		response = "Le chef vous suggère son plat :" + recipe.Name + "\n"
-		for _, element := range recipe.Ingredients {
-			response += "- " + element.Ingredient + " " + element.Mesure + "\n"
-		}
-		translated, err := gtranslate.TranslateWithFromTo(
-			recipe.Instructions,
-			gtranslate.FromTo{
-				From: "en",
-				To:   "fr",
-			},
-		)
-		if err != nil {
-			panic(err)
-		}
-		response += translated
-
-		bot.Send(m.Sender, response)
+		bot.Send(m.Sender, PrettyRecipe(recipe))
 	})
 }
 
@@ -68,9 +72,13 @@ func RecipeCmd() {
 		if !m.Private() {
 			return
 		}
-		var response string
-		response = "Vous avez demandé " + m.Payload + " mais l'application ne supporte pas encore cette fonctionnalité. Revenez plus tard :) "
-
-		bot.Send(m.Sender, response)
+		fmt.Println("OUI")
+		bot.Notify(m.Sender, "typing")
+		recipe := GetRecipe(m.Payload)
+		if recipe.Error == true {
+			bot.Send(m.Sender, "Aucune recette affiliée au nom "+m.Payload)
+		} else {
+			bot.Send(m.Sender, PrettyRecipe(recipe))
+		}
 	})
 }
